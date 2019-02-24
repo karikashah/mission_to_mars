@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+        <title>Mission to Mars</title>
+    </head>
+    <body>
+        <div clas="container">
+            <div class="jumbotron">
+                <h1 style="text-align: center">Mission to Mars</h1>
+                
+                <p style="text-align: center">
+                    <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a>
+                </p>
+            </div>
+            <div class="page-header">
+                
+            </div>
+        </div>  
+
+        {% for data in mars_fact_list %} 
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Latest Mars News</h3>
+                        <h5>{{data.title}}</h5>
+                        <p>{{data.paragraph}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <h3>Featured Image</h3>
+                        <img src="{{data.featured_image_url}}" alt="featured image" style="width: 80%;">
+                    </div>
+                    <div class="col-md-5">
+                        <ul>
+                            <h3>Current Mars Weather</h3>
+                            {{data.mars_weather}}
+                        </ul>
+                        <ul>
+                            <h3>Mars Facts</h3>
+                            {{data.mars_facts_html|safe}}
+                            <a href="{{data.mars_facts_html}}"></a>
+                        </ul>
+                    </div>
+                </div>                 
+            </div>
+                
+            <div class="container-fluid">
+                    <h3 style="text-align: center">Mars Hemispheres</h3>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                {% for hemisphere in data.hemi_lists[0:2] %}
+                                    <img src="{{hemisphere['img_url']}}" alt="hemisphere" style="width:50%;">
+                                    <div class="caption"style="font-weight: bold;">
+                                        {{hemisphere['title']}}
+                                    </div>                                           
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {% for hemisphere in data.hemi_lists[2:4] %}
+                                    <img src="{{hemisphere['img_url']}}" alt="hemisphere" style="width:50%;">
+                                    <div class="caption" style="font-weight: bold;">
+                                        {{hemisphere['title']}}
+                                    </div>                                           
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}              
+    </body>
+</html>
