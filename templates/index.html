@@ -32,46 +32,42 @@
                 </div>
                 <div class="row">
                     <div class="col-md-7">
-                        <h3>Featured Image</h3>
-                        <img src="{{data.featured_image_url}}" alt="featured image" style="width: 80%;">
+                        <h5>Featured Image</h5>
+                        <img src="{{data.featured_image_url}}" alt="featured image" class="w-100 h-100">
                     </div>
                     <div class="col-md-5">
                         <ul>
-                            <h3>Current Mars Weather</h3>
-                            {{data.mars_weather}}
+                            <div class="card" class="w-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Current Mars Weather</h5>
+                                    <p class="card-text">{{data.mars_weather}}</p>
+                                </div>
+                            </div>
                         </ul>
                         <ul>
-                            <h3>Mars Facts</h3>
+                            <h5>Mars Facts</h5>
                             {{data.mars_facts_html|safe}}
-                            <a href="{{data.mars_facts_html}}"></a>
+                            <a href="{{data.mars_facts_html}}" class="h-100 w-100"></a>
                         </ul>
                     </div>
                 </div>                 
             </div>
                 
-            <div class="container-fluid">
-                    <h3 style="text-align: center">Mars Hemispheres</h3>
-                    <div class="body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                {% for hemisphere in data.hemi_lists[0:2] %}
-                                    <img src="{{hemisphere['img_url']}}" alt="hemisphere" style="width:50%;">
-                                    <div class="caption"style="font-weight: bold;">
-                                        {{hemisphere['title']}}
-                                    </div>                                           
-                                {% endfor %}
-                            </div>
-                            <div class="col-md-6">
-                                {% for hemisphere in data.hemi_lists[2:4] %}
-                                    <img src="{{hemisphere['img_url']}}" alt="hemisphere" style="width:50%;">
-                                    <div class="caption" style="font-weight: bold;">
-                                        {{hemisphere['title']}}
-                                    </div>                                           
-                                {% endfor %}
-                            </div>
-                        </div>
+            <section id="lower" class="">
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        <h2>Mars Hemispheres</h2><hr>
                     </div>
+
+                {% for hemisphere in data.hemi_lists %}
+                <div class="col-md-6">
+                    <figure class="figure">
+                        <img class="img-thumbnail" src="{{ hemisphere['img_url'] }}" alt="{{ hemisphere['title']}}">
+                        <figcaption class="figure-caption"><h4>{{ hemisphere['title']}}</h4></figcaption>
+                    </figure>
                 </div>
+                {% endfor %}
+            </section>
         {% endfor %}              
     </body>
 </html>

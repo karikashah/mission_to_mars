@@ -41,8 +41,9 @@ def scrape():
     ##### ------------------ For Mars weather -------------------------------------------------------------
     soup = get_soup_from_url("https://twitter.com/marswxreport?lang=en", browser)
     mars_weather = soup.find("p", class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
-
-    mars_data_dict['mars_weather'] = mars_weather
+    text_list = mars_weather.split('https')
+    
+    mars_data_dict['mars_weather'] = text_list[0]
     
     ##### ------------------ For Mars facts -------------------------------------------------------------
     url_facts = "https://space-facts.com/mars/"

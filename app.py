@@ -24,6 +24,7 @@ def index():
 def scraper():
     mars_data = scrape_mars.scrape()
     mars_collection.update({}, mars_data, upsert=True)
+    print("Mars weather - ", mars_data['mars_weather'])
     return redirect("/", code=302)
 
 if __name__ == "__main__":
