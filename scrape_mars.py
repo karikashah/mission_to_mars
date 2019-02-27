@@ -25,16 +25,28 @@ def scrape():
     soup = get_soup_from_url("https://mars.nasa.gov/news/", browser)
     news_title = soup.find("div",class_="content_title").text
     news_p = soup.find("div", class_="article_teaser_body").text
-    print(f"Title is: {news_title}")
-    print(f"Paragraph is : {news_p}")
+    # print(f"Title is: {news_title}")
+    # print(f"Paragraph is : {news_p}")
 
     mars_data_dict['title'] = news_title
     mars_data_dict['paragraph'] = news_p
     
     ##### ------------------ For Mars featured Image URL -------------------------------------------------------------
-    soup = get_soup_from_url('https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars', browser)
-    image_src = soup.find("a", class_="fancybox")['data-fancybox-href']
-    featured_image_url = "https://www.jpl.nasa.gov" + image_src
+    soup = get_soup_from_url("https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars", browser)
+    href_link = soup.find("a", class_="fancybox")['data-link']
+    domain_link = "https://www.jpl.nasa.gov"
+    browser.click_link_by_id('full_image')
+    time.sleep(1)
+    try:
+        print('in try')
+        new_link = domain_link + href_link
+        print(f"new link is {new_link}")
+        soup_new = get_soup_from_url(new_link, browser)
+        image_src = soup_new.find("img", class_="main_image")['src']
+        featured_image_url = domain_link + image_src
+    except:
+        featured_image_url = "In featured image URL - Sorry the URL you requested is not found."
+    print(featured_image_url)
     
     mars_data_dict['featured_image_url'] = featured_image_url
 
