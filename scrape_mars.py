@@ -38,9 +38,7 @@ def scrape():
     browser.click_link_by_id('full_image')
     time.sleep(1)
     try:
-        print('in try')
         new_link = domain_link + href_link
-        print(f"new link is {new_link}")
         soup_new = get_soup_from_url(new_link, browser)
         image_src = soup_new.find("img", class_="main_image")['src']
         featured_image_url = domain_link + image_src
